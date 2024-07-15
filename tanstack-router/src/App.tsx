@@ -1,20 +1,29 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router"
 import { routeTree } from "./routeTree.gen"
+import { useAuth } from "./assets/hooks/useAuth"
 
 // Create a new router instance
-const router = createRouter({ routeTree })
+const routerApp = createRouter({
+  routeTree,
+  context:{
+    auth:{
+      login:false
+    }
+  }
+})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router
+    router: typeof routerApp
   }
 }
-
-
 const App = () => {
+  const { login:auth }=useAuth()
   return (
-    <RouterProvider router={router} />
+      <RouterProvider router={routerApp} context={{ auth:{
+        login:auth
+      } }} />
   )
 }
 
