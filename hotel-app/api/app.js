@@ -1,6 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import cors from "cors"
+import cors from "cors";
 
 //routes
 import postRouter from "./routes/post.route.js";
@@ -9,11 +9,15 @@ import userRouter from "./routes/user.route.js";
 
 const app=express();
 
+
+
 //configuration
-app.use(cors({
-    origin:`${process.env.CLIENT_URL}`,
-    Credentials:true,
-    }))
+const corsOptions = {
+    origin: `${process.env.CLIENT_URL}`,
+    credentials: true
+  };
+  
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(cookieParser())
 
@@ -25,7 +29,7 @@ app.use("/api/users",userRouter)
 
 
 
-app.listen(8800,()=>{
-    console.log("Listening on port 8800");
+app.listen(8000,()=>{
+    console.log("Listening on port 8000");
 })
 

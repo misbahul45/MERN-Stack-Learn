@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    transition-property: opacity, transform, filter, background;
+    transition-timing-function: ease-in-out;
+    transition-duration: 500ms;
+    margin: auto;
+  }
+  @layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+  
+  .page-transition {
+    opacity: 0;
+    overflow: auto;
+    background: linear-gradient(
+      315deg,
+      rgb(78, 2, 72) 3%,
+      rgb(1, 24, 99) 38%,
+      rgb(0, 157, 255) 68%,
+      rgb(90, 1, 215) 98%
+    );
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    transform: translateY(40px);
+    filter: blur(12px);
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }

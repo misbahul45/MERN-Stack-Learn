@@ -5,3 +5,8 @@ interface User{
     avatar:string,
     createdAt:string
 }
+interface  MyRouterContext{
+    authenticated:{
+      user?:User
+    }
+  }

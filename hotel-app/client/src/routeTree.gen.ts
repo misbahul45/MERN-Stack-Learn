@@ -12,7 +12,12 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ProfileImport } from './routes/profile'
+import { Route as ContactImport } from './routes/contact'
+import { Route as AgentsImport } from './routes/agents'
+import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
+import { Route as AuthSignInImport } from './routes/_auth/sign-in'
 
 // Create/Update Routes
 
@@ -21,8 +26,33 @@ const ProfileRoute = ProfileImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ContactRoute = ContactImport.update({
+  path: '/contact',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AgentsRoute = AgentsImport.update({
+  path: '/agents',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutRoute = AboutImport.update({
+  path: '/about',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthSignUpRoute = AuthSignUpImport.update({
+  path: '/sign-up',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthSignInRoute = AuthSignInImport.update({
+  path: '/sign-in',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -37,6 +67,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
+    }
+    '/agents': {
+      id: '/agents'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof AgentsImport
+      parentRoute: typeof rootRoute
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactImport
+      parentRoute: typeof rootRoute
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -44,12 +95,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileImport
       parentRoute: typeof rootRoute
     }
+    '/_auth/sign-in': {
+      id: '/_auth/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof AuthSignInImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth/sign-up': {
+      id: '/_auth/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof AuthSignUpImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexRoute, ProfileRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  AboutRoute,
+  AgentsRoute,
+  ContactRoute,
+  ProfileRoute,
+  AuthSignInRoute,
+  AuthSignUpRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -60,14 +133,34 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, ProfileRoute })
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/profile"
+        "/about",
+        "/agents",
+        "/contact",
+        "/profile",
+        "/_auth/sign-in",
+        "/_auth/sign-up"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/about": {
+      "filePath": "about.tsx"
+    },
+    "/agents": {
+      "filePath": "agents.tsx"
+    },
+    "/contact": {
+      "filePath": "contact.tsx"
+    },
     "/profile": {
       "filePath": "profile.tsx"
+    },
+    "/_auth/sign-in": {
+      "filePath": "_auth/sign-in.tsx"
+    },
+    "/_auth/sign-up": {
+      "filePath": "_auth/sign-up.tsx"
     }
   }
 }
