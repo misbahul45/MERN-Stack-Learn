@@ -3,13 +3,16 @@ import Navbar from '../components/Layout/Navbar'
 
 
 
+
 export const Route =createRootRouteWithContext<MyRouterContext>()({
-  component:()=>{
-    return <>
-            <Navbar />
-            <main className='w-full flex justify-center bg-slate-900 min-h-screen'>
-              <Outlet />
-            </main>
-          </>
-  }
+  component: RootComponent
 })
+
+function RootComponent(){
+  return <>
+          <Navbar />
+          <main className='w-full flex justify-center bg-slate-900 min-h-[calc(100vh-4rem)]'>
+            <Outlet />
+          </main>
+        </>
+}

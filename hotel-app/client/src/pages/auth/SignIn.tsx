@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
@@ -8,15 +8,17 @@ import { z } from 'zod';
 import Form from '../../components/auth/Form';
 import Input from '../../components/auth/Input';
 import Button from '../../components/auth/Button';
-import useAuth from '../../hooks/useAuth';
+import { AuthContext } from '../../components/Layout/AuthContextProvider';
+
 
 const SignIn = () => {
-  const user=useAuth()
-  const navigate = useNavigate();
+  const navigate=useNavigate()
+  const { signIn }:AuthContextType=useContext(AuthContext)
+
   const [showPassword, setShowPassword] = useState(false);
   const [checkPassword, setCheckPassword] = useState(false);
 
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<z.infer<typeof SignInSchema>>({
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
     mode: "all",
     reValidateMode: 'onChange',
@@ -36,10 +38,13 @@ const SignIn = () => {
 
   const onSubmit = (values: z.infer<typeof SignInSchema>) => {
     const { email, password } = values;
-    user.SignIn({ email, password })
+    signIn({ email, password })
     navigate({
-      to: '/',
-      replace: true
+      to:'/'
+    })
+    reset({
+      email: '',
+      password: ''
     })
   };
   return (

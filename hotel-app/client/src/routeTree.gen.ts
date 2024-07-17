@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SettingsImport } from './routes/settings'
 import { Route as ProfileImport } from './routes/profile'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AgentsImport } from './routes/agents'
@@ -20,6 +21,11 @@ import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
 
 // Create/Update Routes
+
+const SettingsRoute = SettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ProfileRoute = ProfileImport.update({
   path: '/profile',
@@ -95,6 +101,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileImport
       parentRoute: typeof rootRoute
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth/sign-in': {
       id: '/_auth/sign-in'
       path: '/sign-in'
@@ -120,6 +133,7 @@ export const routeTree = rootRoute.addChildren({
   AgentsRoute,
   ContactRoute,
   ProfileRoute,
+  SettingsRoute,
   AuthSignInRoute,
   AuthSignUpRoute,
 })
@@ -137,6 +151,7 @@ export const routeTree = rootRoute.addChildren({
         "/agents",
         "/contact",
         "/profile",
+        "/settings",
         "/_auth/sign-in",
         "/_auth/sign-up"
       ]
@@ -155,6 +170,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/profile": {
       "filePath": "profile.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.tsx"
     },
     "/_auth/sign-in": {
       "filePath": "_auth/sign-in.tsx"

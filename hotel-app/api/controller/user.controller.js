@@ -50,7 +50,8 @@ export const updateUserController = async (req, res) => {
                 ...(updatePassword && {password:hashedUpdatePassword})
             }
         })
-        return res.json({ user:updatedUser })
+        const { password,...dataUser }=updatedUser
+        return res.json({ ...dataUser })
     } catch (error) {
         return res.status(404).json({ message: 'Something went wrong' })
     }
