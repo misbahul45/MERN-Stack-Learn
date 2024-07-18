@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import {  useEffect, useState } from "react"
 import { loginUser } from "../util/auth.fetch"
 import { fetchUpdateUser } from "../util/user.fetch"
 
@@ -6,16 +6,30 @@ import { fetchUpdateUser } from "../util/user.fetch"
 
 
 const useAuth = () => {
-  const [user, setUser]=useState<User>(JSON.parse(localStorage.getItem("user") || "{}"))
+  const [isError, setIsError]=useState<boolean>(false)
+  const [messageError, setMessageError]=useState<string>("")
+  const [user, setUser]=useState<User>()
+
+  useEffect(()=>{
+    const user=localStorage.getItem("user")
+    if(user){
+      setUser(JSON.parse(user))
+    }
+  },[])
+
   const SignIn=async(userLogin:loginUser)=>{
-    if(userLogin){
-      const res=await loginUser(userLogin)
-      console.log(res)
-  
-      if(res){
-        setUser(res)
-        localStorage.setItem("user", JSON.stringify(res))
+    try {
+      if(userLogin){
+        const res=await loginUser(userLogin)
+        if(res){
+          setUser(res)
+          localStorage.setItem("user", JSON.stringify(res))
+        }
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
+      setMessageError(error.message)
+      setIsError(true)
     }
   }
 
@@ -25,15 +39,21 @@ const useAuth = () => {
   }
 
   const updateUser=async({id, user}:UpdateUser)=>{
-    const res=await fetchUpdateUser({id, user})
-    if(res){
-      setUser(res)
-      localStorage.setItem("user", JSON.stringify(res))
+    try {
+      const res=await fetchUpdateUser({id, user})
+      if(res){
+        setUser(res)
+        localStorage.setItem("user", JSON.stringify(res))
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
+      setMessageError(error.message)
+      setIsError(true)
     }
   }
 
 
-  return {user, SignIn, SignOut, updateUser}
+  return {user, SignIn, SignOut, updateUser, isError, messageError}
 }
 
 export default useAuth

@@ -21,7 +21,9 @@ interface User{
     signIn: (credentials: { email: string; password: string }) => void;
     signOut: () => void;
     updateUser:({id, user}:UpdateUser)=>void;
-    user:User
+    user:User,
+    isError:boolean,
+    messageError:string
   }
 
   interface UpdateUserSchema{

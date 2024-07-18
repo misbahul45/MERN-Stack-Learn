@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
 
@@ -18,14 +18,19 @@ export const AuthContext = createContext<AuthContextType>({
     email:'',
     avatar:'',
     createdAt:''
-  }
+  },
+  isError:false,
+  messageError:''
 });
 
  export const AuthContextProvider: React.FC<Props> = ({ children }) => {
   const authenticated = useAuth();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    authenticated.user?.id ? true : false
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  useEffect(() => {
+    if(authenticated.user?.id){
+      setIsAuthenticated(true)
+    }
+  },[authenticated.user])
   const signIn=({ email, password }:loginUser)=>{
       setIsAuthenticated(true)
       authenticated.SignIn({ email, password })
@@ -48,7 +53,9 @@ export const AuthContext = createContext<AuthContextType>({
         signIn,
         signOut,
         updateUser,
-        user:authenticated.user
+        user:authenticated.user as User,
+        isError:authenticated.isError,
+        messageError:authenticated.messageError
       }}
     >
       {children}

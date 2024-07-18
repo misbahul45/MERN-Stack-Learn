@@ -34,7 +34,7 @@ const Navbar = () => {
                         <div onClick={()=>setShowMenu(prev=>!prev)} className="cursor-pointer">
                             {user.avatar?
                                 <div className='flex flex-col items-center justify-center'>
-                                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/8/86/UItachi.png/280px-UItachi.png" alt={user.avatar} loading='lazy' className='size-10 object-cover rounded-full' />
+                                    <img src={user.avatar} alt={user.avatar} loading='lazy' className='size-10 object-cover rounded-full' />
                                 </div>
                                 :
                                 <div className='flex flex-col items-center justify-center'>
