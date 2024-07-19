@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken"
 
 export const registerController = async(req, res) => {
     const { username, email, password } = req.body
-
      if(!username || !email || !password) {
          return res.status(404).json({ error: 'All fields are required' })
      }  
@@ -30,7 +29,7 @@ export const registerController = async(req, res) => {
 export const loginController = async(req, res) => {
     const { email, password }=req.body
     if(!email || !password) {
-        return res.json({ error: 'All fields are required' })
+        return res.status(404).json({ error: 'All fields are required' })
     }
     try {
         //check there is user
