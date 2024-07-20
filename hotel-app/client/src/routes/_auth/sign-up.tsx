@@ -1,12 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Navigate} from '@tanstack/react-router'
 import SignUp from '../../pages/auth/SignUp'
 
 export const Route = createFileRoute('/_auth/sign-up')({
-  component:SignUpPages
+  component:SignUpPages,
 })
 
 
 function SignUpPages(){
+  const {authenticated:{ user } } =Route.useRouteContext()
+  if(user?.id){
+    return <Navigate to={'/'} />
+  }
   return(
     <SignUp />
   )

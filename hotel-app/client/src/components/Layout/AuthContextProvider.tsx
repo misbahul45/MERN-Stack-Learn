@@ -32,7 +32,6 @@ export const AuthContext = createContext<AuthContextType>({
     }
   },[authenticated.user])
   const signIn=({ email, password }:loginUser)=>{
-      setIsAuthenticated(true)
       authenticated.SignIn({ email, password })
   }
 
@@ -43,7 +42,6 @@ export const AuthContext = createContext<AuthContextType>({
 
   const updateUser=({id, user}:UpdateUser)=>{
     authenticated.updateUser({id, user})
-    setIsAuthenticated(true)
   } 
 
   return (

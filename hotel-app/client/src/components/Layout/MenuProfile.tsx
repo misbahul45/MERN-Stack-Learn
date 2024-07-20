@@ -4,14 +4,22 @@ import { FaUserAlt } from 'react-icons/fa'
 import TransitionLink from './TransitionLink'
 import { useContext } from 'react'
 import { AuthContext } from './AuthContextProvider'
-import { Link } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 
 interface Props {
     setShowMenu:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const MenuProfile = ({setShowMenu}:Props) => {
+    const navigate=useNavigate()
+
     const {signOut}=useContext(AuthContext)
+    const handleLogout=()=>{
+        signOut()
+        navigate({to: '/sign-in'})
+    } 
+
+
   return (
     <motion.div
     onClick={()=>setShowMenu(false)}
@@ -31,7 +39,7 @@ const MenuProfile = ({setShowMenu}:Props) => {
           type: 'spring'
       }
     }}
-    className="size-28 bg-slate-800 border border-slate-100 rounded absolute top-full flex flex-col">
+    className="absolute top-[120%] left-1/2 -translate-x-1/2 size-28 bg-slate-800 border border-slate-100 rounded flex flex-col">
         <TransitionLink href="/profile" className="text-xs flex-1 flex items-center justify-center gap-2 text-slate-100 font-semibold border border-slate-200 hover:bg-gray-700 hover:shadow-md hover:shadow-slate-700 transition-all duration-100">
             <FaUserAlt className="text-sm font-semibold" />
             <span>Profile</span>
@@ -40,12 +48,10 @@ const MenuProfile = ({setShowMenu}:Props) => {
             <MdSettings className="text-sm font-semibold" />
             <span>Settings</span>
         </TransitionLink>
-        <Link to="/sign-in" className="text-xs flex-1 flex items-center justify-center text-slate-100 font-semibold border border-slate-200 hover:bg-gray-700 hover:shadow-md hover:shadow-slate-700 transition-all duration-100">
-            <button onClick={signOut} className="flex items-center gap-2 ">
-                <MdLogout className="text-sm font-semibold" />
-                <span>Logout</span>
-            </button>
-        </Link>
+        <button onClick={handleLogout} className="text-xs flex-1 flex gap-2 items-center justify-center text-slate-100 font-semibold border border-slate-200 hover:bg-gray-700 hover:shadow-md hover:shadow-slate-700 transition-all duration-100">
+            <MdLogout className="text-sm font-semibold" />
+            <span>Logout</span>
+        </button>
     </motion.div>
   )
 }

@@ -11,7 +11,7 @@ const Settings = () => {
   const { user, updateUser }=useContext(AuthContext)
   const navigate=useNavigate()
 
-  const [avatar, setAvatar]=useState<string>(user.avatar)
+  const [avatar, setAvatar]=useState<string[]>([user.avatar])
   const [username, setUserName]=useState(user.username)
   const [email, setEmail]=useState(user.email)
 
@@ -25,7 +25,11 @@ const Settings = () => {
 
   const onSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
-    updateUser({id:user.id, user:{username, email,  avatar}})
+    updateUser({id:user.id, user:{
+      username,
+      email,
+      avatar:avatar[0]  
+    }})
     navigate({
       to:'/profile'
     })
@@ -39,7 +43,7 @@ const Settings = () => {
         <>
           <div className='mx-auto size-40 rounded-full border-2 border-slate-600 grid place-items-center'>
             {user.avatar || avatar?
-              <img src={avatar?avatar:user.avatar} alt="avatar" className='w-full h-full object-cover rounded-full' />
+              <img src={avatar[0]?avatar[0]:user.avatar} alt="avatar" className='w-full h-full object-cover rounded-full' />
               :
               <FaUser className='w-full h-[70%] object-cover rounded-full text-slate-100' />
             }

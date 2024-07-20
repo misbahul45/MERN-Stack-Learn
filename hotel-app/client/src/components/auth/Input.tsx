@@ -4,10 +4,11 @@ import { motion, MotionProps } from 'framer-motion';
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
   id: string;
   name: string;
+  type:'text' | 'password' | 'number' | 'email';
   placeholder: string;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({ id, name, type = 'text', placeholder, ...rest }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ id, name, type, placeholder, ...rest }, ref) => {
   return (
     <motion.input
       animate={{

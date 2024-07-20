@@ -21,9 +21,11 @@ const useAuth = () => {
     try {
       if(userLogin){
         const res=await loginUser(userLogin)
-        if(res){
+        if(res.id){
           setUser(res)
           localStorage.setItem("user", JSON.stringify(res))
+        }else{
+          setIsError(true)
         }
       }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as ProfileImport } from './routes/profile'
+import { Route as ListImport } from './routes/list'
+import { Route as CreatePostImport } from './routes/create-post'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AgentsImport } from './routes/agents'
 import { Route as AboutImport } from './routes/about'
@@ -29,6 +31,16 @@ const SettingsRoute = SettingsImport.update({
 
 const ProfileRoute = ProfileImport.update({
   path: '/profile',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ListRoute = ListImport.update({
+  path: '/list',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CreatePostRoute = CreatePostImport.update({
+  path: '/create-post',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -94,6 +106,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactImport
       parentRoute: typeof rootRoute
     }
+    '/create-post': {
+      id: '/create-post'
+      path: '/create-post'
+      fullPath: '/create-post'
+      preLoaderRoute: typeof CreatePostImport
+      parentRoute: typeof rootRoute
+    }
+    '/list': {
+      id: '/list'
+      path: '/list'
+      fullPath: '/list'
+      preLoaderRoute: typeof ListImport
+      parentRoute: typeof rootRoute
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -132,6 +158,8 @@ export const routeTree = rootRoute.addChildren({
   AboutRoute,
   AgentsRoute,
   ContactRoute,
+  CreatePostRoute,
+  ListRoute,
   ProfileRoute,
   SettingsRoute,
   AuthSignInRoute,
@@ -150,6 +178,8 @@ export const routeTree = rootRoute.addChildren({
         "/about",
         "/agents",
         "/contact",
+        "/create-post",
+        "/list",
         "/profile",
         "/settings",
         "/_auth/sign-in",
@@ -167,6 +197,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/contact": {
       "filePath": "contact.tsx"
+    },
+    "/create-post": {
+      "filePath": "create-post.tsx"
+    },
+    "/list": {
+      "filePath": "list.tsx"
     },
     "/profile": {
       "filePath": "profile.tsx"

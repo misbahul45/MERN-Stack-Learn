@@ -13,7 +13,7 @@ import { AuthContext } from '../../components/Layout/AuthContextProvider';
 
 const SignIn = () => {
   const navigate=useNavigate()
-  const { signIn }:AuthContextType=useContext(AuthContext)
+  const { signIn, isError }:AuthContextType=useContext(AuthContext)
 
   const [showPassword, setShowPassword] = useState(false);
   const [checkPassword, setCheckPassword] = useState(false);
@@ -39,9 +39,9 @@ const SignIn = () => {
   const onSubmit = (values: z.infer<typeof SignInSchema>) => {
     const { email, password } = values;
     signIn({ email, password })
-    navigate({
-      to:'/'
-    })
+    if(!isError){
+      navigate({ to:'/' })
+    }
     reset({
       email: '',
       password: ''
@@ -78,6 +78,7 @@ const SignIn = () => {
         {/* Sign Up Link */}
         <h1 className="text-slate-200 text-lg"> Don&apos;t Have an account? <Link to="/sign-up" className="text-blue-500 hover:border-b hover:border-blue-50 transition-all duration-1000">Create</Link></h1>
       </div>
+      {isError && <p className='text-red-500 text-2xl'>Please input Correct Email and Password</p>}
     </main>
   );
 };

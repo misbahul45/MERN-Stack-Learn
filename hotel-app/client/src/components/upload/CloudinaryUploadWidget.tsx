@@ -3,7 +3,7 @@ import Button from "../auth/Button";
 
 interface CloudinaryUploadWidgetProps {
   uwConfig: object;
-  setPublicId: (publicId: string) => void;
+  setPublicId: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 interface CloudinaryScriptContextProps {
@@ -44,8 +44,7 @@ const CloudinaryUploadWidget: React.FC<CloudinaryUploadWidgetProps> = ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            console.log("Done! Here is the image info: ", result.info);
-            setPublicId(result.info.secure_url);
+            setPublicId(prev=>[...prev,result.info.secure_url]);
           }
         }
       );

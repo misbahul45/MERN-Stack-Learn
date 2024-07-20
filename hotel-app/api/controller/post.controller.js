@@ -25,16 +25,22 @@ export const getPostController=async(req,res)=>{
         return res.status(404).json({ message: 'failed get Post' })
     }
 }
+
 export const createPostController=async(req,res)=>{
     try {
-        const dataPost=req.body
+        const {postDetail, ...dataPost}=req.body
         const userId=req.userId
         const slugPost=generateSlug(dataPost.title)
         const post=await db.post.create({
             data:{
                 ...dataPost,
                 slug:slugPost,
-                userId:userId
+                userId,
+                postDetail:{
+                    create:{
+                        ...postDetail
+                    }
+                }
             }
         })
         return res.json({ message: `${post.title} successfully created` })

@@ -5,6 +5,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useContext, useState } from "react";
 import { AuthContext } from "./AuthContextProvider";
 import MenuProfile from "./MenuProfile";
+import { FaPenAlt } from "react-icons/fa";
 
 
 
@@ -29,23 +30,30 @@ const Navbar = () => {
                     <TransitionLink className={`w-20 text-center h-full grid place-items-center hover:shadow-lg hover:shadow-blue-400 hover:scale-105 transition-all duration-100 ${pathname==="/agents" && ("shadow-lg shadow-blue-500")}`} href={'/agents'}>Agents</TransitionLink>
                </nav>
             </div>
-            <div className='h-full grid place-items-center'>
-                    {isAuthenticated?
-                        <div onClick={()=>setShowMenu(prev=>!prev)} className="cursor-pointer">
-                            {user.avatar?
-                                <div className='flex flex-col items-center justify-center'>
-                                    <img src={user.avatar} alt={user.avatar} loading='lazy' className='size-10 object-cover rounded-full' />
-                                </div>
-                                :
-                                <div className='flex flex-col items-center justify-center'>
-                                    <FaCircleUser className='text-slate-100 text-4xl' />
-                                </div>
-                            }
-                        </div>
+            <div className='relative h-full flex items-center justify-center gap-4'>
+                    {isAuthenticated &&  user?.id ?
+                        <>
+                            <TransitionLink className="text-slate-100 font-semibold text-lg flex items-center gap-2 border-4 border-blue-700 px-4 py-1 hover:bg-blue-600 hover:shadow-md transition-all duration-100 rounded" href={'/create-post'}>
+                                <span>Write</span> 
+                                <FaPenAlt />
+                            </TransitionLink>
+                            <div onClick={()=>setShowMenu(prev=>!prev)} className="cursor-pointer">
+                                {user?.avatar?
+                                    <div className='flex flex-col items-center justify-center border-2 border-slate-200 rounded-full'>
+                                        <img src={user.avatar} alt={user.avatar} loading='lazy' className='size-10 object-cover rounded-full' />
+                                    </div>
+                                    :
+                                    <div className='flex flex-col items-center justify-center'>
+                                        <FaCircleUser className='text-slate-100 text-4xl' />
+                                    </div>
+                                }
+                            </div>
+                            {showMenu && <MenuProfile setShowMenu={setShowMenu} />}
+                        </>
                         :
                         <TransitionLink href={'/sign-in'} className="bg-blue-600 px-4 py-2 text-slate-100 font-semibold rounded shadow-md shadow-slate-500 hover:shadow-slate-300 transition-all duration-100">Sign In</TransitionLink>
                     }
-                  {(isAuthenticated&&showMenu) && <MenuProfile setShowMenu={setShowMenu} />}
+
             </div>
         </div>
     </header>
