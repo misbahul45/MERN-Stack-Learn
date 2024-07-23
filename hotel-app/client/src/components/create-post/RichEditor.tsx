@@ -42,17 +42,6 @@ const config = {
       "Times New Roman,Times,serif": "Times New Roman",
       "Verdana,Geneva,sans-serif": "Verdana",
     },
-    fontSize: {
-      "8": "8 pt",
-      "9": "9 pt",
-      "10": "10 pt",
-      "11": "11 pt",
-      "12": "12 pt",
-      "14": "14 pt",
-      "18": "18 pt",
-      "24": "24 pt",
-      "36": "36 pt",
-    },
     imageUpload: true,
     imageDefaultAlign: 'left',
     videoInsertButtons: ["videoBack", "|", "videoByURL", "videoEmbed"],
@@ -64,7 +53,6 @@ const config = {
     videoResponsive: true,
     linkAlwaysBlank: true,
     colorsBackground: ["#FFFFFF", "#000000", "#FF0000", "#00FF00", "#0000FF"],
-    colorsText: ["#FFFFFF", "#000000", "#FF0000", "#00FF00", "#0000FF"],
   };
 
 

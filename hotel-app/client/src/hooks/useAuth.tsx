@@ -36,8 +36,8 @@ const useAuth = () => {
   }
 
   const SignOut=()=>{
-    setUser({} as User)
-    localStorage.clear()
+    setUser(undefined)
+    localStorage.removeItem("user")
   }
 
   const updateUser=async({id, user}:UpdateUser)=>{

@@ -1,20 +1,18 @@
 import { createFileRoute, Navigate } from '@tanstack/react-router'
 import SignIn from '../../pages/auth/SignIn'
-import { useContext } from 'react'
-import { AuthContext } from '../../components/Layout/AuthContextProvider'
-
 
 export const Route = createFileRoute('/_auth/sign-in')({
-  component:SignInPages,
+  component:SignInPage,
 })
 
-
-function SignInPages(){
-  const {isAuthenticated}=useContext(AuthContext)
-  if(isAuthenticated){
+function SignInPage() {
+  const {authenticated:{ user } } =Route.useRouteContext()
+  if(user?.id){
     return <Navigate to={'/'} />
   }
-  return(
-    <SignIn />
-  )
+  return (
+    <section className='w-full'>
+      <SignIn />
+    </section>
+    )
 }

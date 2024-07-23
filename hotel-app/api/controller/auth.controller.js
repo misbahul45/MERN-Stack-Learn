@@ -48,8 +48,7 @@ export const loginController = async(req, res) => {
         }
         //generate token
         const { password:userPassword, ...userData}=userAccount 
-        const isAdmin=userAccount.isAdmin
-        const age=100*60*60
+        const age=10000*60*60
         const token=jwt.sign({
             id:userAccount.id,
             

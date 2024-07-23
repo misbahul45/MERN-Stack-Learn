@@ -62,5 +62,34 @@ interface CreatePost{
     type:string
     property:string
     userId:string
+}
+interface PostDetail{
+  id:string,
+  desc:string,
+  utilities:string,
+  pet:string,
+  income:string,
+  size:number
+  school:number
+  bus:number
+  restaurant:number
+}
 
+interface Post{
+  id:string,
+  title:string
+  slug:string
+  price:number
+  imgs:string[]
+  address:string,
+  city:string
+  bedroom:number
+  bathroom:number
+  createAdd:string
+  latitude:string
+  longitude:string
+  type:string
+  property:string
+  userId:string
+  postDetail:PostDetail
 }

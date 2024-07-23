@@ -19,6 +19,7 @@ import { Route as ContactImport } from './routes/contact'
 import { Route as AgentsImport } from './routes/agents'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as PostsSlugImport } from './routes/posts.$slug'
 import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
 
@@ -61,6 +62,11 @@ const AboutRoute = AboutImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostsSlugRoute = PostsSlugImport.update({
+  path: '/posts/$slug',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -148,6 +154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpImport
       parentRoute: typeof rootRoute
     }
+    '/posts/$slug': {
+      id: '/posts/$slug'
+      path: '/posts/$slug'
+      fullPath: '/posts/$slug'
+      preLoaderRoute: typeof PostsSlugImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -164,6 +177,7 @@ export const routeTree = rootRoute.addChildren({
   SettingsRoute,
   AuthSignInRoute,
   AuthSignUpRoute,
+  PostsSlugRoute,
 })
 
 /* prettier-ignore-end */
@@ -183,7 +197,8 @@ export const routeTree = rootRoute.addChildren({
         "/profile",
         "/settings",
         "/_auth/sign-in",
-        "/_auth/sign-up"
+        "/_auth/sign-up",
+        "/posts/$slug"
       ]
     },
     "/": {
@@ -215,6 +230,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_auth/sign-up": {
       "filePath": "_auth/sign-up.tsx"
+    },
+    "/posts/$slug": {
+      "filePath": "posts.$slug.tsx"
     }
   }
 }

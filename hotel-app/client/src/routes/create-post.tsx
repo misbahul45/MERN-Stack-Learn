@@ -1,8 +1,15 @@
-import { createFileRoute} from '@tanstack/react-router'
+import { createFileRoute, redirect} from '@tanstack/react-router'
 import CreatePost from '../pages/create-post/CreatePost'
 
 export const Route = createFileRoute('/create-post')({
   component: CreatePostPage,
+  beforeLoad:({ context:{ authenticated: {user}  } }) => {
+    if(!user){
+      return redirect({
+        to: '/sign-in'
+      })
+    }
+  }
 })
 
 
@@ -10,6 +17,8 @@ export const Route = createFileRoute('/create-post')({
 function CreatePostPage() {
   const { authenticated:{ user } }=Route.useRouteContext()
   return (
-    <CreatePost userId={user?.id || ''} />
+    <section className='w-full'>
+      <CreatePost userId={user?.id || ''} />
+    </section>
   )
 }

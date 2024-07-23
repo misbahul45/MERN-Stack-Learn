@@ -9,7 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CreatePostSchema } from "../../schema/create-post.zod"
 import { z } from "zod"
 import FormAddImage from "./FormAddImage"
-import { fetchCreatePost } from "../../util/createPost.fetch"
+import { fetchCreatePost } from "../../util/post.fetch"
+import { useNavigate } from "@tanstack/react-router"
 
 const optionType=["rent","buy"]
 const optionProperty=["apartement","house","condo","land"]
@@ -22,11 +23,12 @@ interface  Props{
 }
 
 const CreatePost = ({userId}:Props) => {
+    const navigate=useNavigate()
     const [errorPost, setErrorPost]=useState<boolean | string>(false)
 
     const [description, setDescription]=useState<string>('')
     const [imgs, setImgs]=useState<string[]>([])
-    const {register, handleSubmit}=useForm<z.infer<typeof CreatePostSchema>>({
+    const {register, handleSubmit, reset}=useForm<z.infer<typeof CreatePostSchema>>({
         resolver:zodResolver(CreatePostSchema),
         defaultValues:{
             title:'',
@@ -79,6 +81,29 @@ const CreatePost = ({userId}:Props) => {
             if (post.status >= 400) {
                 setErrorPost(post.message);
             }
+            reset({
+                title:'',
+                price:'0',
+                address:'',
+                city:'',
+                bedroom:'0',
+                bathroom:'0',
+                latitude:'',
+                longitude:'',
+                school:'0',
+                size:'0',
+                type: optionType[0], 
+                property: optionProperty[0],
+                utilities: optionUtilities[0],
+                pet: optionPet[0],
+                income: optionIncome[0],
+                bus:'0',
+                restaurant:'0'
+            })
+            setImgs([])
+            setDescription('')
+            navigate({to:'/list'})
+            
         } catch (error) {
             console.error('Error creating post:', error);
             setErrorPost(true);

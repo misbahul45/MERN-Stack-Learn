@@ -12,6 +12,8 @@ function SignUpPages(){
     return <Navigate to={'/'} />
   }
   return(
-    <SignUp />
+    <section className='w-full'>
+       <SignUp />
+    </section>
   )
 }

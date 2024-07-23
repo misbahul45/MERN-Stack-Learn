@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 export const Route = createFileRoute('/posts/$id')({
   component:Post,
   loader:async({ params }) => {
-    console.log(params)
     const res=await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`)
     return await res.json()
   }
