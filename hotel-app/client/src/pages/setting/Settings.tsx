@@ -28,7 +28,7 @@ const Settings = () => {
     updateUser({id:user.id, user:{
       username,
       email,
-      avatar:avatar[0]  
+      avatar:avatar[avatar.length-1]  
     }})
     navigate({
       to:'/profile'
@@ -43,7 +43,7 @@ const Settings = () => {
         <>
           <div className='mx-auto size-40 rounded-full border-2 border-slate-600 grid place-items-center'>
             {user.avatar || avatar?
-              <img src={avatar[0]?avatar[0]:user.avatar} alt="avatar" className='w-full h-full object-cover rounded-full' />
+              <img src={avatar.length>1?avatar[avatar.length-1]:avatar[0]} alt="avatar" className='size-40 object-cover rounded-full' />
               :
               <FaUser className='w-full h-[70%] object-cover rounded-full text-slate-100' />
             }

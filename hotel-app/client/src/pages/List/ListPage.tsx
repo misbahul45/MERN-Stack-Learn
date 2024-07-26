@@ -30,7 +30,6 @@ const ListPage: React.FC<Props> = ({ property, city, minPrice, maxPrice, type }:
 
 
   useEffect(() => {
-
     const fetchPosts = async () => {
       setIsLoading(true);
       const fetchedPosts:any = await fetchGetAllPosts({ city, property, minPrice, maxPrice, type });

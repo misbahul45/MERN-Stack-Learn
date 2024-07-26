@@ -15,3 +15,12 @@ export const fetchUpdateUser=async({id, user}:UpdateUser)=>{
         return error
     }
 }
+
+export const fetchGetSingleUser=async(id:string)=>{
+    try {
+        const res=await axiosInstance.get(`/users/${id}`)
+        return res.data.user as User
+    } catch (error) {
+        return null
+    }
+}

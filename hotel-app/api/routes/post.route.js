@@ -5,8 +5,8 @@ import { createPostController, deletePostController, getPostController, getPosts
 const router=express.Router();
 
 
-router.get("/",authLoginMiddleware, getPostsController)
-router.get("/:slug",authLoginMiddleware, getPostController)
+router.get("/", getPostsController)
+router.get("/:slug", getPostController)
 router.post("/",authLoginMiddleware, createPostController)
 
 router.patch("/:id",authLoginMiddleware, updatePostController)

@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { fetchGetSinglePost } from '../util/post.fetch'
 import DisplayImgaes from '../components/showPost/DisplayImgaes'
 import Icon from '../components/showPost/Icon'
@@ -10,6 +10,9 @@ import { BsTextarea } from "react-icons/bs";
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView'
 import { IoMdRestaurant } from 'react-icons/io';
 import { FaBusAlt } from 'react-icons/fa';
+import UserProfile from '../components/showPost/UserProfile';
+import { CiBookmarkPlus } from 'react-icons/ci';
+import { TiMessageTyping } from 'react-icons/ti';
 
 export const Route = createFileRoute('/posts/$slug')({
   component: PostPage,
@@ -19,24 +22,27 @@ export const Route = createFileRoute('/posts/$slug')({
         ...post
       }
   },
-  beforeLoad:({ context:{ authenticated: {user}  } }) => {
-    if(!user){
-      return redirect({
-        to: '/sign-in'
-      })
-    }
-  }
 })
 
 
 
 
 function  PostPage() {
+  const navigate=useNavigate()
+  const {authenticated:{ user }}=Route.useRouteContext()
   const post:Post=Route.useLoaderData()
 
   const propertyType=post.property==="house"?<FaHouse className='text-xl text-slate-400' />
                     :post.property==="land"?<FaLandmark className='text-xl text-slate-400' />
                     :post.property==="hotel"?<FaHotel className='text-xl text-slate-400' />:<MdApartment className='text-xl text-slate-400' />
+
+  const handleSave=async()=>{
+    if(!user?.id){
+      return navigate({
+        to:'/sign-in'
+      })
+    }
+  }
 
   return(
     <section className='w-full h-full max-w-[80%]'>
@@ -44,7 +50,15 @@ function  PostPage() {
         <div className='w-full flex flex-col gap-8'>
           <DisplayImgaes images={post?.imgs} />
           <h1 className='text-4xl font-semibold text-slate-200'>{post?.title}</h1>
-          <p className='text-slate-100'>{post?.address}</p>
+          <div className="flex justify-between">
+            <div>
+              <p className='text-slate-100 mb-4'>{post?.address}</p>
+              <p className="w-40 text-center py-2 bg-cyan-600 text-slate-100 rounded-md shadow-lg shadow-slate-600 cursor-default">
+                Rp{post.price.toLocaleString("id-ID")}
+              </p>
+            </div>
+            <UserProfile userId={post.userId} />
+          </div>
           <div className='text-slate-100'>
             <FroalaEditorView
               model={post?.postDetail.desc}
@@ -52,6 +66,17 @@ function  PostPage() {
           </div>
         </div>
         <div className='w-full max-w-md h-full bg-white/5 backdrop-blur py-8 flex flex-col  gap-4 px-6 shadow-lg shadow-slate-300/20'>
+        <div className="flex-1 flex justify-center gap-8">
+            <button onClick={handleSave} className={`flex-1 flex justify-center items-center gap-2 rounded bg-slate-700 text-xl text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-green-700 hover:scale-105 transition-all duration-100`}>
+              <CiBookmarkPlus className="h-10" />
+              <span>Saved post</span>
+            </button>
+            <button className="flex-1 flex justify-center items-center gap-2 rounded bg-slate-700 text-xl text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-red-800 hover:scale-105 transition-all duration-100">
+                <TiMessageTyping className="h-10l" />
+                <span>Send Message</span>
+            </button>
+          </div>
+
           <div className='flex flex-col gap-6'>
             <h1 className='text-xl text-slate-100 font-semibold'>General</h1>
             <div className='flex flex-col gap-2 px-4 py-2.5 rounded-md bg-slate-600'>

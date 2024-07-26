@@ -73,3 +73,38 @@ export const deleteUserController = async (req, res) => {
         return res.status(404).json({ message: 'Something went wrong' })   
     }
 }
+
+export const savedPostController=async(req,res)=>{
+    const { postId } = req.body
+    const userId=req.userId
+    try {
+        if(!postId) return res.status(404).json({ message: 'Require post id' })
+        const savedPost=await db.savedPost.findUnique({
+            where:{
+                postId_userId:{
+                    userId,
+                    postId
+                }
+            }
+        })
+        if(savedPost){
+            await db.savedPost.delete({
+                where:{
+                    id:savedPost.id
+                }
+            })
+            return res.json({ message:"Successfully deleted" })
+        } else{
+            await db.savedPost.create({
+                data:{
+                    userId,
+                    postId
+                }
+            })
+            return res.json({ message:"" })
+        }   
+
+    } catch (error) {
+        return res.status(404).json({ message: 'something went wrong' })
+    }
+}
