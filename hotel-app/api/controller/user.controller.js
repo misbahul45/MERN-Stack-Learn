@@ -93,7 +93,7 @@ export const savedPostController=async(req,res)=>{
                     id:savedPost.id
                 }
             })
-            return res.json({ message:"Successfully deleted" })
+            return res.json({ save:true })
         } else{
             await db.savedPost.create({
                 data:{
@@ -101,10 +101,11 @@ export const savedPostController=async(req,res)=>{
                     postId
                 }
             })
-            return res.json({ message:"" })
+            return res.json({ save:false })
         }   
 
     } catch (error) {
+        console.log(error)
         return res.status(404).json({ message: 'something went wrong' })
     }
 }

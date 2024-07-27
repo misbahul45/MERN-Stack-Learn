@@ -31,12 +31,12 @@ const ListPage: React.FC<Props> = ({ property, city, minPrice, maxPrice, type }:
 
   useEffect(() => {
     const fetchPosts = async () => {
-      setIsLoading(true);
       const fetchedPosts:any = await fetchGetAllPosts({ city, property, minPrice, maxPrice, type });
+      setIsLoading(true);
       if(fetchedPosts !== undefined){
         setPosts(fetchedPosts)
       }
-      await sleep(1000);
+      await sleep(700);
       setIsLoading(false);
     };
     fetchPosts();

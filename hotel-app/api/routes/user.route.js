@@ -5,7 +5,7 @@ import { authLoginAdminMiddleware, authLoginMiddleware } from "../middleware/aut
 const router=express.Router();
 
 router.get("/",authLoginAdminMiddleware,getAllUsersController)
-router.get("/:id",authLoginMiddleware, getUserController)
+router.get("/:id", getUserController)
 router.patch("/:id",authLoginMiddleware, updateUserController)
 router.post('/save',authLoginMiddleware, savedPostController)
 

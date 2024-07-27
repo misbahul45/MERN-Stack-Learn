@@ -3,7 +3,6 @@ import {generateSlug} from "../utils/generateSlug.js"
 
 export const getPostsController = async (req, res) => {
     const { city, type, property, minPrice, maxPrice } = req.query;
-    console.log(typeof maxPrice)
     try {
         const posts = await db.post.findMany({
             where: {
@@ -29,7 +28,6 @@ export const getPostsController = async (req, res) => {
 
 export const getPostController=async(req,res)=>{
     const {slug}=req.params
-    console.log(slug)
     try{ 
         const dataPost=await db.post.findUnique({
             where:{
@@ -46,7 +44,15 @@ export const getPostController=async(req,res)=>{
             ...dataPost,
             postDetail
          }
-        return res.json({...post})
+         const isSaved=await db.savedPost.findUnique({
+             where:{
+                 postId_userId:{
+                     postId:dataPost.id,
+                     userId:dataPost.userId
+                 }
+             }
+         })
+        return res.json({...post, isSaved:isSaved?true:false})
     } catch (error) {
         console.log(error)
         return res.status(404).json({ message: 'failed get Post' })
@@ -106,5 +112,24 @@ export const deletePostController=async(req,res)=>{
     } catch (error) {
         console.log(error)
         return res.status(404).json({ message: 'failed delete Posts' })
+    }
+}
+
+export const getSavedPostController=async(req,res)=>{
+    const { postId }=req.params
+    const userId=req.userId
+    try {
+        const savedPost=await db.savedPost.findUnique({
+            where:{
+                postId_userId:{
+                    userId,
+                    postId
+                }
+            }
+        })
+        return res.json({ savedPost:savedPost?true:false })
+    } catch (error) {
+        console.log(error)
+        return res.status(404).json({ message: 'something went wrong' })
     }
 }

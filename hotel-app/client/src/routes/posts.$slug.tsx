@@ -13,13 +13,14 @@ import { FaBusAlt } from 'react-icons/fa';
 import UserProfile from '../components/showPost/UserProfile';
 import { CiBookmarkPlus } from 'react-icons/ci';
 import { TiMessageTyping } from 'react-icons/ti';
+import React from 'react';
 
 export const Route = createFileRoute('/posts/$slug')({
   component: PostPage,
   loader: async ({ params:{ slug }}) => {
-      const post=await fetchGetSinglePost(slug)
+      const data=await fetchGetSinglePost(slug)
       return {
-        ...post
+        ...data,
       }
   },
 })
@@ -31,6 +32,9 @@ function  PostPage() {
   const navigate=useNavigate()
   const {authenticated:{ user }}=Route.useRouteContext()
   const post:Post=Route.useLoaderData()
+
+  const [savePost, setSavePost] = React.useState<boolean>(post.isSaved || false);
+  console.log(post.isSaved)
 
   const propertyType=post.property==="house"?<FaHouse className='text-lg text-slate-400' />
                     :post.property==="land"?<FaLandmark className='text-lg text-slate-400' />
@@ -57,7 +61,7 @@ function  PostPage() {
                 Rp{post.price.toLocaleString("id-ID")}
               </p>
             </div>
-            <UserProfile userId={post.userId} />
+            <UserProfile userId={post?.userId} />
           </div>
           <div className='text-slate-100'>
             <FroalaEditorView
@@ -67,7 +71,7 @@ function  PostPage() {
         </div>
         <div className='w-full max-w-sm h-full bg-white/5 backdrop-blur p-4 flex flex-col gap-4 rounded-md shadow-lg shadow-slate-300/20'>
           <div className="flex-1 flex justify-center gap-4">
-            <button onClick={handleSave} className={`flex-1 flex justify-center items-center gap-2 rounded bg-slate-700 text-lg text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-gray-900 transition-all duration-100`}>
+            <button onClick={handleSave} className={`flex-1 flex justify-center items-center gap-2 rounded ${savePost?"bg-gray-900":"bg-slate-700"} text-lg text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-gray-900 transition-all duration-100`}>
               <CiBookmarkPlus className="h-10" />
               <span>Saved post</span>
             </button>
@@ -102,7 +106,6 @@ function  PostPage() {
           </div>
         </div>
       </div>
-
     </section>
   )
 }

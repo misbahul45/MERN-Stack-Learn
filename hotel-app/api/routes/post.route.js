@@ -1,6 +1,6 @@
 import express from "express";
 import { authLoginMiddleware } from "../middleware/authMiddleware.js";
-import { createPostController, deletePostController, getPostController, getPostsController, updatePostController } from "../controller/post.controller.js";
+import { createPostController, deletePostController, getPostController, getPostsController, getSavedPostController, updatePostController } from "../controller/post.controller.js";
 
 const router=express.Router();
 
@@ -11,6 +11,8 @@ router.post("/",authLoginMiddleware, createPostController)
 
 router.patch("/:id", updatePostController)
 router.delete("/:id",authLoginMiddleware, deletePostController)
+
+router.get('/save/:postId',authLoginMiddleware,getSavedPostController)
 
 
 export default router;

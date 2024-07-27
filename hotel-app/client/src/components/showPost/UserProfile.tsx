@@ -7,6 +7,7 @@ interface Props{
 }
 const UserProfile = ({userId}:Props) => {
     const [user, setUser] = React.useState<User | null>()
+    console.log(userId)
     React.useEffect(()=>{
         const fetchUser=async()=>{
             const user=await fetchGetSingleUser(userId)
@@ -17,7 +18,7 @@ const UserProfile = ({userId}:Props) => {
   return (
     <div className='bg-blue-500 text-slate-100 p-4 rounded shadow-md shadow-slate-200'>
       {user?.avatar?
-         <img src={user?.avatar ||""} alt="author image" className='block mx-auto size-12 rounded-full object-cover' />
+         <img src={user?.avatar ||""} alt="author image" loading='lazy' className='block mx-auto size-12 rounded-full object-cover' />
          :
          <div className="flex justify-center items-center size-12 rounded-full border-2 border-slate-600 ">
             <FaUserAlt className='w-full h-[70%] text-slate-100' />

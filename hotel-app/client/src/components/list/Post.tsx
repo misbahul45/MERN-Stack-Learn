@@ -1,18 +1,34 @@
 import { useNavigate } from "@tanstack/react-router";
 import { FaBath, FaBed, FaImage } from "react-icons/fa";
-import { CiBookmarkPlus } from "react-icons/ci";
+import { CiBookmark, CiBookmarkPlus } from "react-icons/ci";
 import { TiMessageTyping } from "react-icons/ti";
 import { FaLocationDot } from "react-icons/fa6";
-import { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
+import { AuthContext } from "../Layout/AuthContextProvider";
+import { fetchGetSavedPost, fetchSavePost } from "../../util/post.fetch";
 
 interface Props extends Post {
-  isLoading?:boolean
+  isLoading?:boolean,
 }
 
 
 
-const PostComponent = ({ title, slug, price, imgs, address, bathroom, bedroom, isLoading }: Props) => {
+const PostComponent = ({ id, title, slug, price, imgs, address, bathroom, bedroom, isLoading, isSaved }: Props) => {
   const navigate=useNavigate()
+  const { user }=React.useContext(AuthContext)
+
+  const [savePost, setSavePost] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    const getSavedPost = async () => {
+      const save=await fetchGetSavedPost(id)
+      setSavePost(save)
+    }
+
+    getSavedPost()
+  }, []);
+
+
   const goPost=()=>{
     navigate({
       to:`/posts/${slug}`,
@@ -21,6 +37,29 @@ const PostComponent = ({ title, slug, price, imgs, address, bathroom, bedroom, i
       }
     })
   }
+
+  const handleSave=async()=>{
+    if(!user?.id){
+      return navigate({
+        to:'/sign-in'
+      })
+    }
+    await fetchSavePost(id)
+   if(savePost){
+    setSavePost(false)
+   }else{
+    setSavePost(true)
+   }
+  }
+
+  const handleMessage=async()=>{
+    if(!user?.id){
+      return navigate({
+        to:'/sign-in'
+      })
+    }
+  }
+
   if(isLoading){
     return (
       <div className="w-full flex gap-4">
@@ -35,7 +74,7 @@ const PostComponent = ({ title, slug, price, imgs, address, bathroom, bedroom, i
   }
 
   return (
-    <div onClick={goPost} className="flex-1 flex gap-4 hover:bg-white/10 hover:backdrop-blur-md p-2 rounded-lg cursor-pointer">
+    <div className="flex-1 flex gap-4 items-center">
       <div className="size-44">
         <Suspense fallback={<FaImage className="w-full h-full text-gray-900" />}>
           {imgs.length > 0 ? (
@@ -50,9 +89,12 @@ const PostComponent = ({ title, slug, price, imgs, address, bathroom, bedroom, i
           )}
         </Suspense>
       </div>
-      <div className="flex-1 py-2 flex flex-col justify-between gap-4">
+      <div className="flex-1 py-2 flex flex-col justify-between gap-6">
         <div className="flex-1">
-          <h1 className="text-xl font-bold text-slate-200 mb-2">{title}</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl font-bold text-slate-200 mb-2">{title}</h1>
+            <button onClick={goPost} className="text-blue-500 hover:text-blue-700 hover:border-b-2 hover:border-blue-600 transition-all duration-100">Read more</button>
+          </div>
           <h2 className="flex gap-3 items-center text-slate-100 mb-4">
             <FaLocationDot />
             <span>{address}</span>
@@ -73,10 +115,10 @@ const PostComponent = ({ title, slug, price, imgs, address, bathroom, bedroom, i
             </div>
           </div>
           <div className="w-44 flex justify-center gap-4">
-            <button className="size-7 p-0.5 rounded bg-slate-700 text-xl text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-red-800 hover:scale-105 transition-all duration-100">
-              <CiBookmarkPlus className="w-full h-full" />
+            <button onClick={handleSave} className={`size-7 p-0.5 rounded text-xl text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-gray-900 hover:scale-105 transition-all duration-100 ${savePost?"bg-gray-900":"bg-slate-700"}`}>
+              {savePost?<CiBookmark className="w-full h-full" />:<CiBookmarkPlus className="w-full h-full" />}
             </button>
-            <button  className="size-7 p-0.5 rounded bg-slate-700 text-xl text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-red-800 hover:scale-105 transition-all duration-100">
+            <button onClick={handleMessage} className="size-7 p-0.5 rounded bg-slate-700 text-xl text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-gray-900 hover:scale-105 transition-all duration-100">
                 <TiMessageTyping className="w-full h-full" />
             </button>
           </div>

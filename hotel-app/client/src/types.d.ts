@@ -91,5 +91,6 @@ interface Post{
   type:string
   property:string
   userId:string
-  postDetail:PostDetail
+  postDetail:PostDetail,
+  isSaved?:boolean
 }
