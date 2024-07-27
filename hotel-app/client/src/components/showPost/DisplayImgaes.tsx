@@ -33,7 +33,7 @@ const Carousel=({ children, length }:CarouselProps)=>{
         </div>
       </div>
         {length>1&&(
-          <div className="flex gap-1 items-cente">
+          <div className="flex flex-row-reverse gap-1 items-center">
             {[...Array(length)].map((_,i)=>(
               <button key={i} onClick={()=>setCurrentIndex(i)} className={`size-2 rounded-full ${currentIndex===i?"bg-slate-700":"bg-slate-100"} transition-all duration-200`} />
             ))}

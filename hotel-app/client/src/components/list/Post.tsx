@@ -24,19 +24,19 @@ const PostComponent = ({ title, slug, price, imgs, address, bathroom, bedroom, i
   if(isLoading){
     return (
       <div className="w-full flex gap-4">
-          <div className="size-56 flex justify-center items-center">
+          <div className="size-32 flex justify-center items-center">
             <div className="size-16 rounded-full border-t-4 border-slate-400 animate-spin"></div>
           </div>
-          <div className="flex-1  flex items-center justify-center">
-            <div className="size-24 rounded-full border-t-4 border-slate-400 animate-spin"></div>
+          <div className="flex-1 flex items-center justify-center">
+            <div className="size-20 rounded-full border-t-4 border-slate-400 animate-spin"></div>
           </div>
       </div>
     )
   }
 
   return (
-    <div onClick={goPost} className="flex-1 flex gap-4 hover:bg-white/10 hover:backdrop-blur-md p-4 rounded-lg cursor-pointer">
-      <div className="size-56">
+    <div onClick={goPost} className="flex-1 flex gap-4 hover:bg-white/10 hover:backdrop-blur-md p-2 rounded-lg cursor-pointer">
+      <div className="size-44">
         <Suspense fallback={<FaImage className="w-full h-full text-gray-900" />}>
           {imgs.length > 0 ? (
             <img
@@ -50,16 +50,16 @@ const PostComponent = ({ title, slug, price, imgs, address, bathroom, bedroom, i
           )}
         </Suspense>
       </div>
-      <div className="flex-1 py-2 flex flex-col justify-between">
-        <div className="flex-1 flex flex-col gap-6">
-          <h1 className="text-3xl font-semibold text-slate-200">{title}</h1>
-          <h2 className="flex gap-3 items-center text-slate-100">
+      <div className="flex-1 py-2 flex flex-col justify-between gap-4">
+        <div className="flex-1">
+          <h1 className="text-xl font-bold text-slate-200 mb-2">{title}</h1>
+          <h2 className="flex gap-3 items-center text-slate-100 mb-4">
             <FaLocationDot />
             <span>{address}</span>
           </h2>
-          <p className="w-40 text-center py-2 bg-cyan-600 text-slate-100 rounded-md shadow-lg shadow-slate-600 cursor-default">
+          <span className="px-4 py-2 bg-cyan-600 text-slate-100 rounded-md shadow-lg shadow-slate-700 cursor-default">
             Rp{price.toLocaleString("id-ID")}
-          </p>
+          </span>
         </div>
         <div className="flex justify-between items-center">
           <div className="flex-1 flex gap-4 items-center">

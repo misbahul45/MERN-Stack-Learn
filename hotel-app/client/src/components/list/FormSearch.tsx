@@ -79,8 +79,8 @@ const FormSearch = ({type,property,minPrice,maxPrice, city}:Props) => {
                 <label htmlFor="maxPrice" className="font-semibold text-slate-200">Max Price</label>
                 <Input {...register('maxPrice')} id='maxPrice' name='maxPrice' type='text' placeholder='Max. Price' className='pl-2 h-full' /> 
             </div>
-            <Button className="size-12 rounded-full bg-yellow-600 text-slate-100 text-xl ml-4 grid place-items-center hover:bg-red-600 active:opacity-60 transition-all duration-100">
-                <FaSearch />
+            <Button className="size-10 rounded-full bg-yellow-600 text-slate-100 ml-4 grid place-items-center hover:bg-red-600 active:opacity-60 transition-all duration-100">
+                <FaSearch size={20} />
             </Button>
         </Form>
     </>

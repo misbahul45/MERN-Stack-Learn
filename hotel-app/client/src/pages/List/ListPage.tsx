@@ -44,8 +44,8 @@ const ListPage: React.FC<Props> = ({ property, city, minPrice, maxPrice, type }:
 
 
   return (
-    <div className="w-full max-w-[55%] h-full flex flex-col justify-center items-center py-8">
-      <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-l from-cyan-500 via-blue-600 to-cyan-300 mb-8">
+    <div className="w-full max-w-[60%] h-full flex flex-col justify-center items-center py-8">
+      <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-l from-cyan-500 via-blue-600 to-cyan-300 mb-4">
         Get Search Results For{" "}
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-700 via-yellow-600 to-red-700 animate-text">
           {locationText}

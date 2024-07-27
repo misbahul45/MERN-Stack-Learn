@@ -9,7 +9,7 @@ router.get("/", getPostsController)
 router.get("/:slug", getPostController)
 router.post("/",authLoginMiddleware, createPostController)
 
-router.patch("/:id",authLoginMiddleware, updatePostController)
+router.patch("/:id", updatePostController)
 router.delete("/:id",authLoginMiddleware, deletePostController)
 
 
