@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { fetchGetSinglePost } from '../util/post.fetch'
+import { fetchGetSinglePost, fetchSavePost } from '../util/post.fetch'
 import DisplayImgaes from '../components/showPost/DisplayImgaes'
 import Icon from '../components/showPost/Icon'
 
@@ -11,7 +11,7 @@ import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView'
 import { IoMdRestaurant } from 'react-icons/io';
 import { FaBusAlt } from 'react-icons/fa';
 import UserProfile from '../components/showPost/UserProfile';
-import { CiBookmarkPlus } from 'react-icons/ci';
+import { CiBookmark, CiBookmarkPlus } from 'react-icons/ci';
 import { TiMessageTyping } from 'react-icons/ti';
 import React from 'react';
 
@@ -34,7 +34,7 @@ function  PostPage() {
   const post:Post=Route.useLoaderData()
 
   const [savePost, setSavePost] = React.useState<boolean>(post.isSaved || false);
-  console.log(post.isSaved)
+ 
 
   const propertyType=post.property==="house"?<FaHouse className='text-lg text-slate-400' />
                     :post.property==="land"?<FaLandmark className='text-lg text-slate-400' />
@@ -45,6 +45,12 @@ function  PostPage() {
       return navigate({
         to:'/sign-in'
       })
+    }
+    await fetchSavePost(post?.id)
+    if(savePost){
+     setSavePost(false)
+    }else{
+     setSavePost(true)
     }
   }
 
@@ -72,7 +78,7 @@ function  PostPage() {
         <div className='w-full max-w-sm h-full bg-white/5 backdrop-blur p-4 flex flex-col gap-4 rounded-md shadow-lg shadow-slate-300/20'>
           <div className="flex-1 flex justify-center gap-4">
             <button onClick={handleSave} className={`flex-1 flex justify-center items-center gap-2 rounded ${savePost?"bg-gray-900":"bg-slate-700"} text-lg text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-gray-900 transition-all duration-100`}>
-              <CiBookmarkPlus className="h-10" />
+              {savePost?<CiBookmark className="h-10"/>:<CiBookmarkPlus className="h-10"/>}
               <span>Saved post</span>
             </button>
             <button className="flex-1 flex justify-center items-center gap-2 rounded bg-slate-700 text-lg text-slate-200 shadow shadow-slate-300 hover:bg-gray-900 cursor-pointer transition-all duration-100">
