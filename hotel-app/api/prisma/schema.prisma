@@ -19,11 +19,10 @@ model User {
   username  String      @unique
   password  String
   avatar    String?
+  isAgen    Boolean?
   createdAt DateTime    @default(now())
   Post      Post[]
   savedPost SavedPost[]
-  Chat      Chat?       @relation(fields: [chatIDs], references: [id])
-  chatIDs   String[]    @db.ObjectId
 }
 
 model Post {
@@ -69,23 +68,4 @@ model SavedPost {
   userId String? @db.ObjectId
 
   @@unique([postId, userId])
-}
-
-model Chat {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  users       User[]
-  userIDs     String
-  createdAt   DateTime  @default(now())
-  seenBy      String[]  @db.ObjectId
-  messages    Message[]
-  lastMessage String?
-}
-
-model Message {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  text      String
-  userId    String
-  chat      Chat     @relation(fields: [chatId], references: [id])
-  chatId    String   @db.ObjectId
-  createdAt DateTime @default(now())
 }

@@ -17,7 +17,7 @@ const FormAddImage = ({imgs, setImgs}:Props) => {
      <div className="w-full flex flex-col gap-4">
         <div className="w-full h-96">
           {imgs.length>0?
-          <img src={imgs[showImg]} alt={imgs[showImg]} className="w-full h-full object-cover" />
+          <img src={imgs[showImg]} alt={imgs[showImg]} loading="lazy" className="w-full h-full object-cover" />
           :
           <div className="w-full h-full rounded-md bg-slate-200 flex flex-col justify-center items-center">
             <FaImage className="w-[70%] h-[70%]" />

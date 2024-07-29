@@ -69,7 +69,7 @@ const SignUp = () => {
   }
 
   return (
-    <main className="w-full h-[calc(100vh-4rem)] py-8 grid place-items-center">
+    <main className="w-full min-h-[calc(100vh-4rem)] py-8 grid place-items-center">
       <div className="w-full flex flex-col gap-4 justify-center items-center">
         <h1 className="text-4xl animate-text bg-gradient-to-r from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent font-black">Create Your Account</h1>
         <p className='text-sm text-slate-500 w-full max-w-xl text-center'>Welcome to KnixxTrav! Wishing you endless happiness on your journey. Explore, discover, and create unforgettable memories. Enjoy every moment and make the most of your adventures!</p>
@@ -113,7 +113,7 @@ const SignUp = () => {
             </label>
 
           {/* Submit Button */}
-          <Button className="mt-4 animate-text bg-gradient-to-r from-slate-900 via-violet-800 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold transition-all duration-100" type="submit">Create</Button>
+          <Button className="mt-4 animate-text bg-gradient-to-r from-slate-900 via-violet-800 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold hover:via-yellow-600 active:via-red-700 transition-all duration-100" type="submit">Create</Button>
         </Form>
         
         {/* Sign In Link */}

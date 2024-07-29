@@ -15,7 +15,7 @@ export const Route = createFileRoute('/settings')({
 
 function SettingsPages(){
   return(
-    <section>
+    <section className='w-full max-w-lg'>
        <Settings />
     </section>
   )

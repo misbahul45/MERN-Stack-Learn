@@ -53,8 +53,6 @@ const useAuth = () => {
       setIsError(true)
     }
   }
-
-
   return {user, SignIn, SignOut, updateUser, isError, messageError}
 }
 

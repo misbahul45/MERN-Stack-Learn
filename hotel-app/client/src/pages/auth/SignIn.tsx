@@ -48,7 +48,7 @@ const SignIn = () => {
     })
   };
   return (
-    <main className="w-full h-[calc(100vh-4rem)] py-8 grid place-items-center">
+    <main className="w-full min-h-[calc(100vh-4rem)] py-8 grid place-items-center">
       <div className="w-full flex flex-col gap-4 justify-center items-center">
         <h1 className="text-4xl animate-text bg-gradient-to-r from-red-500 via-violet-500 to-orange-500 bg-clip-text text-transparent font-black">Log Into KnixxTrav</h1>
         <Form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-lg flex flex-col gap-6">
@@ -72,7 +72,7 @@ const SignIn = () => {
           </label>
 
           {/* Submit Button */}
-          <Button className="mt-4 animate-text bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold transition-all duration-100" type="submit">Login</Button>
+          <Button className="mt-4 animate-text bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold hover:via-yellow-600 active:via-red-700 transition-all duration-100" type="submit">Login</Button>
         </Form>
 
         {/* Sign Up Link */}

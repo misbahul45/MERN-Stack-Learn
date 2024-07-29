@@ -31,7 +31,8 @@ const Settings = () => {
       avatar:avatar[avatar.length-1]  
     }})
     navigate({
-      to:'/profile'
+      to:'/profile/$id',
+      params:{ id:user?.id }
     })
   }
 

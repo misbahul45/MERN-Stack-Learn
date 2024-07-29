@@ -30,7 +30,7 @@ const HomeSearch = () => {
        ...(values.city && {city:values.city}),
        ...(values.minPrice && {minPrice:parseInt(values.minPrice)}),
        ...(values.maxPrice && {maxPrice:parseInt(values.maxPrice)}),  
-        type:searchType
+        type:searchType,
       }
     })
   }

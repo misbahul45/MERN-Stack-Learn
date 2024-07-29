@@ -118,15 +118,15 @@ const CreatePost = ({userId}:Props) => {
 
       <Form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4 max-w-3xl">
         <div className="flex gap-2 items-center">
-            <div className="flex flex-col gap-2">
+            <div className="flex-1 flex flex-col gap-2">
                 <label htmlFor="title" className="font-semibold text-sm text-slate-200">Title</label>
                 <Input {...register('title')} id="title" name="title" type="text" placeholder="Title...." className="py-2 pl-2 rounded w-full" />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex-1 flex flex-col gap-2">
                 <label htmlFor="price" className="font-semibold text-sm text-slate-200">Price</label>
                 <Input {...register('price')} id="price" name="price" type="text" placeholder="Price...." className="py-2 pl-2 rounded w-full" />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex-1 flex flex-col gap-2">
                 <label htmlFor="address" className="font-semibold text-sm text-slate-200">Address</label>
                 <Input {...register('address')} id="address" name="address" type="text" placeholder="Address...." className="py-2 pl-2 rounded w-full" />
             </div>
@@ -135,15 +135,15 @@ const CreatePost = ({userId}:Props) => {
             <RichEditor setModel={setDescription} />
         </div>
         <div className="flex gap-2 items-center">
-            <div className="flex flex-col gap-2">
+            <div className="flex-1 flex flex-col gap-2">
                 <label htmlFor="city" className="font-semibold text-sm text-slate-200">City</label>
                 <Input {...register('city')} id="city" name="city" type="text" placeholder="City...." className="py-2 pl-2 rounded w-full" />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex-1 flex flex-col gap-2">
                 <label htmlFor="bedroom" className="font-semibold text-sm text-slate-200">Bedroom Number</label>
                 <Input {...register('bedroom')} id="bedroom" name="bedroom" type="text" placeholder="bedroom...." className="py-2 pl-2 rounded w-full" />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex-1 flex flex-col gap-2">
                 <label htmlFor="bathroom" className="font-semibold text-sm text-slate-200">Bathroom Number</label>
                 <Input {...register('bathroom')} id="bathroom" name="bathroom" type="text" placeholder="Bathroom Number...." className="py-2 pl-2 rounded w-full" />
             </div>
@@ -181,26 +181,26 @@ const CreatePost = ({userId}:Props) => {
                 <label htmlFor="income" className="text-sm font-semibold text-slate-200">Income Policy</label>
                 <Select options={optionIncome} tags="income" {...register('income')} />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex-1 flex flex-col gap-2">
                 <label htmlFor="size" className="font-semibold text-sm text-slate-200">Size(M) </label>
                 <Input {...register('size')} id="size" name="size" type="text" placeholder="Size...." className="py-2 pl-2 rounded w-full" />
             </div>
-            <div className="flex flex-col gap-2">
-                <label htmlFor="school" className="font-semibold text-sm text-slate-200">School</label>
-                <Input {...register('school')} id="school" name="school" type="text" placeholder="Number of School...." className="py-2 pl-2 rounded w-full" />
+            <div className="flex-1 flex flex-col gap-2">
+                <label htmlFor="school" className="font-semibold text-sm text-slate-200">School(m)</label>
+                <Input {...register('school')} id="school" name="school" type="text" placeholder="Distance to school" className="py-2 pl-2 rounded w-full" />
             </div>
         </div>
         <div className="flex gap-2 items-center">
             <div className="flex-1 flex flex-col gap-2">
-                <label htmlFor="restaurant" className="font-semibold text-sm text-slate-200">Restaurant</label>
-                <Input {...register('restaurant')} id="restaurant" name="restaurant" type="text" placeholder="Number of Restaurant...." className="py-2 pl-2 rounded w-full" />
+                <label htmlFor="restaurant" className="font-semibold text-sm text-slate-200">Restaurant(m)</label>
+                <Input {...register('restaurant')} id="restaurant" name="restaurant" type="text" placeholder="Distance to school" className="py-2 pl-2 rounded w-full" />
             </div>
             <div className="flex-1 flex flex-col gap-2">
-                <label htmlFor="bus" className="font-semibold text-sm text-slate-200">Bus</label>
-                <Input {...register('bus')} id="bus" name="bus" type="text" placeholder="Number of Bus...." className="py-2 pl-2 rounded w-full" />
+                <label htmlFor="bus" className="font-semibold text-sm text-slate-200">Bus(m)</label>
+                <Input {...register('bus')} id="bus" name="bus" type="text" placeholder="Distance to school" className="py-2 pl-2 rounded w-full" />
             </div>
         </div>
-        <Button type="submit" className="mt-4 animate-text bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold transition-all duration-100">Submit</Button>
+        <Button type="submit" className="mt-4 bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold hover:via-red-700 transition-all duration-100">Submit</Button>
       </Form>
     </div>
   )

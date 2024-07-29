@@ -12,7 +12,6 @@ import { IoMdRestaurant } from 'react-icons/io';
 import { FaBusAlt } from 'react-icons/fa';
 import UserProfile from '../components/showPost/UserProfile';
 import { CiBookmark, CiBookmarkPlus } from 'react-icons/ci';
-import { TiMessageTyping } from 'react-icons/ti';
 import React from 'react';
 
 export const Route = createFileRoute('/posts/$slug')({
@@ -28,7 +27,7 @@ export const Route = createFileRoute('/posts/$slug')({
 
 
 
-function  PostPage() {
+function PostPage() {
   const navigate=useNavigate()
   const {authenticated:{ user }}=Route.useRouteContext()
   const post:Post=Route.useLoaderData()
@@ -56,8 +55,8 @@ function  PostPage() {
 
   return(
     <section className='w-full h-full max-w-[90%]'>
-      <div className='flex justify-around gap-4 py-8'>
-        <div className='w-full flex flex-col gap-8'>
+      <div className='flex justify-around gap-4 py-12'>
+        <div className='flex-1 flex flex-col gap-8'>
           <DisplayImgaes images={post?.imgs} />
           <h1 className='text-4xl font-semibold text-slate-200'>{post?.title}</h1>
           <div className="flex justify-between">
@@ -75,17 +74,17 @@ function  PostPage() {
             />
           </div>
         </div>
-        <div className='w-full max-w-sm h-full bg-white/5 backdrop-blur p-4 flex flex-col gap-4 rounded-md shadow-lg shadow-slate-300/20'>
-          <div className="flex-1 flex justify-center gap-4">
-            <button onClick={handleSave} className={`flex-1 flex justify-center items-center gap-2 rounded ${savePost?"bg-gray-900":"bg-slate-700"} text-lg text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-gray-900 transition-all duration-100`}>
-              {savePost?<CiBookmark className="h-10"/>:<CiBookmarkPlus className="h-10"/>}
-              <span>Saved post</span>
-            </button>
-            <button className="flex-1 flex justify-center items-center gap-2 rounded bg-slate-700 text-lg text-slate-200 shadow shadow-slate-300 hover:bg-gray-900 cursor-pointer transition-all duration-100">
-                <TiMessageTyping className="h-10" />
-                <span>Message</span>
-            </button>
-          </div>
+        <div className='w-96 h-full bg-white/5 backdrop-blur p-4 flex flex-col gap-4 rounded-md shadow-lg shadow-slate-300/20'>
+          {post.userId!==user?.id&&(
+            <div className="flex justify-center gap-4">
+              <button onClick={handleSave} className={`flex-1 flex justify-center items-center gap-2 rounded ${savePost?"bg-gray-900":"bg-slate-700"} text-lg text-slate-200 shadow shadow-slate-300 cursor-pointer hover:bg-gray-900 transition-all duration-100`}>
+                {savePost?<CiBookmark className="h-10"/>:<CiBookmarkPlus className="h-10"/>}
+                <span>Saved post</span>
+              </button>
+            </div>
+          )
+
+          }
           <div className='flex flex-col gap-4'>
             <h1 className='text-lg text-slate-100 font-semibold'>General</h1>
             <div className='flex flex-col gap-2 px-4 py-2.5 rounded-md bg-slate-600'>
@@ -104,7 +103,7 @@ function  PostPage() {
           </div>
           <div className='flex flex-col gap-4'>
             <h1 className='text-lg text-slate-100 font-semibold'>Nearby Places</h1>
-            <div className='flex justify-between items-center px-4 py-2.5 rounded-md bg-slate-600'> 
+            <div className='flex flex-col gap-4 px-4 py-2.5 rounded-md bg-slate-600'> 
               <Icon icon={<FaSchool className='text-lg text-slate-400' />} desc={`${post.postDetail.school}m away`} />
               <Icon icon={<FaBusAlt className='text-lg text-slate-400' />} desc={`${post.postDetail.bus}m away`} />
               <Icon icon={<IoMdRestaurant className='text-lg text-slate-400' />} desc={`${post.postDetail.restaurant}m away`} />

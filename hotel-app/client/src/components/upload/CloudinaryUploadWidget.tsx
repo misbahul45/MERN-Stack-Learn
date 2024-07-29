@@ -59,7 +59,7 @@ const CloudinaryUploadWidget: React.FC<CloudinaryUploadWidgetProps> = ({
 
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
-        <Button type="button" id="upload_widget" className="w-48 mx-auto -4 animate-text bg-gradient-to-r from-slate-800 via-red-800 to-slate-800 text-slate-100 py-2.5 rounded-md font-semibold hover:via-blue-600 transition-all duration-100" onClick={initializeCloudinaryWidget}>
+        <Button type="button" id="upload_widget" className="w-48 mx-auto bg-gradient-to-r from-slate-800 via-red-800 to-slate-800 text-slate-100 py-2.5 rounded-md font-semibold hover:via-blue-600 active:scale-95 transition-all duration-100" onClick={initializeCloudinaryWidget}>
             Upload image
         </Button>
     </CloudinaryScriptContext.Provider>

@@ -2,7 +2,7 @@ import db from "../lib/prisma.js"
 import {generateSlug} from "../utils/generateSlug.js"
 
 export const getPostsController = async (req, res) => {
-    const { city, type, property, minPrice, maxPrice } = req.query;
+    const { city, type, property, minPrice, maxPrice, userId, get } = req.query;
     try {
         const posts = await db.post.findMany({
             where: {
@@ -15,8 +15,14 @@ export const getPostsController = async (req, res) => {
                 price: {
                     gte: minPrice?parseInt(minPrice):0,
                     lt: maxPrice?parseInt(maxPrice):undefined
-                }
-            }
+                },
+                userId
+            },
+            orderBy:{
+                createdAt:'desc'         
+            },
+            skip:get?Number(get)*5:undefined,
+            take:get?(Number(get)*5)+5:undefined
         });
         return res.json(posts);
     } catch (error) {
@@ -132,4 +138,25 @@ export const getSavedPostController=async(req,res)=>{
         console.log(error)
         return res.status(404).json({ message: 'something went wrong' })
     }
+}
+
+export const getAllPostSavedController=async(req,res)=>{
+      const tokenUserId=req.userId
+      try {
+        const savedPosts = await db.post.findMany({
+            where:{
+                SavedPost:{
+                    some:{
+                        userId:tokenUserId,
+                    }
+                }
+            }
+        })
+
+       
+        return res.json(savedPosts || [])
+      } catch (error) {
+        
+        res.status(404).json({ message:"something wrong!!" })
+      }
 }

@@ -9,10 +9,10 @@ const Carousel=({ children, length }:CarouselProps)=>{
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const next=()=>{
-    setCurrentIndex((prev)=>(prev===length-1?0:prev+1))
+    currentIndex===length-1?setCurrentIndex(0):setCurrentIndex(prev=>prev+1)
   }
   const prev=()=>{
-    setCurrentIndex((prev)=>(prev===0?length-1:prev-1))
+    currentIndex===0?setCurrentIndex(length-1):setCurrentIndex(prev=>prev-1)
   }
 
   return(
@@ -32,13 +32,19 @@ const Carousel=({ children, length }:CarouselProps)=>{
           )}
         </div>
       </div>
-        {length>1&&(
-          <div className="flex flex-row-reverse gap-1 items-center">
-            {[...Array(length)].map((_,i)=>(
-              <button key={i} onClick={()=>setCurrentIndex(i)} className={`size-2 rounded-full ${currentIndex===i?"bg-slate-700":"bg-slate-100"} transition-all duration-200`} />
-            ))}
-          </div>
-        )}
+      {length > 1 && (
+        <div className="flex gap-1 items-center">
+          {[...Array(length)].map((_, i) => {
+            return(
+              <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              className={`size-2 rounded-full ${currentIndex === i ? "bg-slate-100" : "bg-slate-700"} transition-all duration-200`}
+            />
+            )
+        })}
+        </div>
+      )}
     </div>
   )
 }

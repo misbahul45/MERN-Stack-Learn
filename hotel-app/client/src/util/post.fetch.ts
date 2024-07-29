@@ -5,11 +5,13 @@ interface FetchAllDataPosts{
     type?:string
     property?:string
     minPrice?:number
-    maxPrice?:number
+    maxPrice?:number,
+    userId?:string,
+    get?:number
 }
 
 
-export const fetchGetAllPosts=async({ city, type, property, minPrice, maxPrice }:FetchAllDataPosts):Promise<Post[] | unknown>=>{
+export const fetchGetAllPosts=async({ city, type, property, minPrice, maxPrice, userId, get }:FetchAllDataPosts):Promise<Post[] | unknown>=>{
     try {
         const res=await axiosInstance.get(`/posts`,{
             params:{
@@ -17,7 +19,9 @@ export const fetchGetAllPosts=async({ city, type, property, minPrice, maxPrice }
                 type,
                 property,
                 minPrice,
-                maxPrice
+                maxPrice,
+                userId,
+                get,
             }
         })
         return res.data as Post[]
@@ -56,12 +60,22 @@ export const fetchSavePost=async(postId:string)=>{
     }
 }
 
-export const fetchGetSavedPost=async(postId:string )=>{
+export const fetchGetSavedPost=async(postId:string)=>{
     try {
         const res=await axiosInstance.get(`/posts/save/${postId}`)
         return res.data.savedPost?true:false
     } catch (error) {
         console.log(error)
         return false
+    }
+}
+
+export const fetchGetAllSavedPost=async()=>{
+    try {
+        const res=await axiosInstance.get(`/posts/save/all`)
+        return res.data as Post[]
+    } catch (error) {
+        console.log(error)
+        return []
     }
 }

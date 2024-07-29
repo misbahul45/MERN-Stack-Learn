@@ -7,6 +7,7 @@ import postRouter from "./routes/post.route.js";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
 
+
 const app=express();
 
 

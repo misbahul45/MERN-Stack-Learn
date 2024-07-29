@@ -40,7 +40,7 @@ const FormSearch = ({type,property,minPrice,maxPrice, city}:Props) => {
                 to:'/list',
                 search:{
                    ...(city && {city}),
-                   ...((values.type &&  values.type!=="any") && {type:(values.type)}),
+                   ...({type:(values.type)}),
                    ...((values.property &&  values.property!=="any") && {property:(values.property)}),
                    ...((values.minPrice &&  values.minPrice!=="0") && {minPrice:Number(values.minPrice)}),
                    ...((values.maxPrice &&  values.maxPrice!=="0") && {maxPrice:Number(values.maxPrice)}),
@@ -73,11 +73,11 @@ const FormSearch = ({type,property,minPrice,maxPrice, city}:Props) => {
             </div>
             <div className='h-full flex-1 flex flex-col items-center'>
                 <label htmlFor="minPrice" className="font-semibold text-slate-200">Min Price</label>
-                <Input {...register('minPrice')} id='minPrice' name='minPrice' type='text' placeholder='Min. Price' className='pl-2 h-full' />
+                <Input {...register('minPrice')} id='minPrice' name='minPrice' type='text' placeholder='Min. Price' className='pl-2 h-full w-full' />
             </div>
             <div className='h-full flex-1 flex flex-col items-center'>
                 <label htmlFor="maxPrice" className="font-semibold text-slate-200">Max Price</label>
-                <Input {...register('maxPrice')} id='maxPrice' name='maxPrice' type='text' placeholder='Max. Price' className='pl-2 h-full' /> 
+                <Input {...register('maxPrice')} id='maxPrice' name='maxPrice' type='text' placeholder='Max. Price' className='pl-2 h-full w-full' /> 
             </div>
             <Button className="size-10 rounded-full bg-yellow-600 text-slate-100 ml-4 grid place-items-center hover:bg-red-600 active:opacity-60 transition-all duration-100">
                 <FaSearch size={20} />

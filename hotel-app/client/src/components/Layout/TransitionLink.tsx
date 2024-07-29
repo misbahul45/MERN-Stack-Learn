@@ -5,11 +5,12 @@ interface TransitionLinkProps {
   href: string;
   children: React.ReactNode;
   [key: string]: unknown;   
+  params?:string
 }
 
 const sleep = (ms: number = 1000) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
-const TransitionLink: React.FC<TransitionLinkProps> = ({ href, children, ...props }) => {
+const TransitionLink: React.FC<TransitionLinkProps> = ({ href, children, params ,...props }) => {
   const navigate = useNavigate();
 
   const handleTransition = async () => {
@@ -17,7 +18,7 @@ const TransitionLink: React.FC<TransitionLinkProps> = ({ href, children, ...prop
     if (body) {
       body.classList.add('page-transition');
       await sleep(500);
-      navigate({ to: href, replace: true });
+      navigate({ to: href, replace: true, params:{ id:params } });
       await sleep(500);
       body.classList.remove('page-transition');
     }

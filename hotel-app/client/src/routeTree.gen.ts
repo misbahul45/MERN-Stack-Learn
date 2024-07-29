@@ -12,13 +12,13 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SettingsImport } from './routes/settings'
-import { Route as ProfileImport } from './routes/profile'
 import { Route as ListImport } from './routes/list'
 import { Route as CreatePostImport } from './routes/create-post'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AgentsImport } from './routes/agents'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProfileIdImport } from './routes/profile.$id'
 import { Route as PostsSlugImport } from './routes/posts.$slug'
 import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
@@ -27,11 +27,6 @@ import { Route as AuthSignInImport } from './routes/_auth/sign-in'
 
 const SettingsRoute = SettingsImport.update({
   path: '/settings',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ProfileRoute = ProfileImport.update({
-  path: '/profile',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -62,6 +57,11 @@ const AboutRoute = AboutImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileIdRoute = ProfileIdImport.update({
+  path: '/profile/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -126,13 +126,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListImport
       parentRoute: typeof rootRoute
     }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileImport
-      parentRoute: typeof rootRoute
-    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -161,6 +154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsSlugImport
       parentRoute: typeof rootRoute
     }
+    '/profile/$id': {
+      id: '/profile/$id'
+      path: '/profile/$id'
+      fullPath: '/profile/$id'
+      preLoaderRoute: typeof ProfileIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -173,11 +173,11 @@ export const routeTree = rootRoute.addChildren({
   ContactRoute,
   CreatePostRoute,
   ListRoute,
-  ProfileRoute,
   SettingsRoute,
   AuthSignInRoute,
   AuthSignUpRoute,
   PostsSlugRoute,
+  ProfileIdRoute,
 })
 
 /* prettier-ignore-end */
@@ -194,11 +194,11 @@ export const routeTree = rootRoute.addChildren({
         "/contact",
         "/create-post",
         "/list",
-        "/profile",
         "/settings",
         "/_auth/sign-in",
         "/_auth/sign-up",
-        "/posts/$slug"
+        "/posts/$slug",
+        "/profile/$id"
       ]
     },
     "/": {
@@ -219,9 +219,6 @@ export const routeTree = rootRoute.addChildren({
     "/list": {
       "filePath": "list.tsx"
     },
-    "/profile": {
-      "filePath": "profile.tsx"
-    },
     "/settings": {
       "filePath": "settings.tsx"
     },
@@ -233,6 +230,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/posts/$slug": {
       "filePath": "posts.$slug.tsx"
+    },
+    "/profile/$id": {
+      "filePath": "profile.$id.tsx"
     }
   }
 }

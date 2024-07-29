@@ -9,6 +9,14 @@ export const registerController = async(req, res) => {
      }  
     //hash password
      try {
+        const isRegisterUser=await db.user.findUnique({
+            where:{
+                email
+            }
+        })
+        if(isRegisterUser){
+            return res.status(404).json({ message:'User already exists' })
+        }
         const hashedPassword=await hashPassword(password)
         const newUser=await db.user.create({
             data:{
