@@ -57,22 +57,23 @@ const SignIn = () => {
             <span className="text-slate-200 text-lg">Email<span className="text-red-400">*</span></span>
             <Input {...register('email')} id="email" name="email" type="email" placeholder="jKd0H@example.com" className="pl-4 py-2.5 rounded bg-slate-700 text-slate-100 outline-none focus:ring-4 focus:ring-green-500 invalid:focus:ring-pink-700" />
           </label>
-
-          {/* Password Input */}
-          <label htmlFor="password" className="relative flex flex-col gap-2">
-            <span className="text-slate-200 text-lg">Password<span className="text-red-400">*</span></span>
-            <Input {...register('password')} minLength={8} id="password" name="password" type={showPassword ? 'text' : 'password'} placeholder={showPassword ? 'Ex@mple123' : '********'} className={`${errors.password?"focus:ring-pink-700":"focus:ring-green-500"} px-4 py-2.5 rounded bg-slate-700 text-slate-100 outline-none focus:ring-4`} />
-            {checkPassword && watch('password').length > 0 && (
-              <p className='text-xs text-pink-500'>Password at Least 8 characters, contains at least one uppercase, number, character</p>
-            )}
-            {/* Toggle Password Visibility */}
-            <Button onClick={() => setShowPassword(!showPassword)} type="button" className={`text-slate-200 absolute right-2 text-xl z-10 ${errors.password?.message ? "bottom-9" : "bottom-3"}`}>
-              {!showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-            </Button>
-          </label>
-
+          <div>
+              {/* Password Input */}
+              <label htmlFor="password" className="relative flex flex-col gap-2">
+                <span className="text-slate-200 text-lg">Password<span className="text-red-400">*</span></span>
+                <Input {...register('password')} minLength={8} id="password" name="password" type={showPassword ? 'text' : 'password'} placeholder={showPassword ? 'Ex@mple123' : '********'} className={`${errors.password?"focus:ring-pink-700":"focus:ring-green-500"} px-4 py-2.5 rounded bg-slate-700 text-slate-100 outline-none focus:ring-4`} />
+                {checkPassword && watch('password').length > 0 && (
+                  <p className='text-xs text-pink-500'>Password at Least 8 characters, contains at least one uppercase, number, character</p>
+                )}
+                {/* Toggle Password Visibility */}
+                <Button onClick={() => setShowPassword(!showPassword)} type="button" className={`text-slate-200 absolute right-2 text-xl z-10 ${errors.password?.message ? "bottom-9" : "bottom-3"}`}>
+                  {!showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+                </Button>
+              </label>
+              <Link to='/forgot-password' className="mt-4 font-extrabold text-slate-200 text-lg hover:text-blue-500 transition-all duration-1000">Forgot Password?</Link>
+            </div>
           {/* Submit Button */}
-          <Button className="mt-4 animate-text bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold hover:via-yellow-600 active:via-red-700 transition-all duration-100" type="submit">Login</Button>
+          <Button className="animate-text bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 text-slate-100 py-2.5 rounded-md font-semibold hover:via-yellow-600 active:via-red-700 transition-all duration-100" type="submit">Login</Button>
         </Form>
 
         {/* Sign Up Link */}

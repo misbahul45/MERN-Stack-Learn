@@ -27,7 +27,7 @@ export const getUserController = async (req, res) => {
 
 export const updateUserController = async (req, res) => {
     try {
-        const { password:updatePassword , avatar,...dataUpdate }=req.body
+        const { avatar,...dataUpdate }=req.body
         const userId=req.params.id
         const tokenUserId=req.userId
 
@@ -35,10 +35,6 @@ export const updateUserController = async (req, res) => {
         if(!userId) return res.status(404).json({ message: 'Require user id' })
         if(userId!==tokenUserId) return res.status(404).json({ message: 'Not authorized' }) 
         
-        let hashedUpdatePassword=null
-        if(updatePassword){
-            hashedUpdatePassword=await hashPassword(updatePassword)
-        }
         
         const updatedUser=await db.user.update({
             where:{
@@ -47,7 +43,6 @@ export const updateUserController = async (req, res) => {
             data:{
                 ...dataUpdate,
                 ...(avatar && {avatar}),
-                ...(updatePassword && {password:hashedUpdatePassword})
             }
         })
         const { password,...dataUser }=updatedUser

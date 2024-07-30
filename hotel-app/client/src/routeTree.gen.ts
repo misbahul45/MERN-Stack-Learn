@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as ListImport } from './routes/list'
+import { Route as ForgotPasswordImport } from './routes/forgot-password'
 import { Route as CreatePostImport } from './routes/create-post'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AgentsImport } from './routes/agents'
@@ -32,6 +33,11 @@ const SettingsRoute = SettingsImport.update({
 
 const ListRoute = ListImport.update({
   path: '/list',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ForgotPasswordRoute = ForgotPasswordImport.update({
+  path: '/forgot-password',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -119,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatePostImport
       parentRoute: typeof rootRoute
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordImport
+      parentRoute: typeof rootRoute
+    }
     '/list': {
       id: '/list'
       path: '/list'
@@ -172,6 +185,7 @@ export const routeTree = rootRoute.addChildren({
   AgentsRoute,
   ContactRoute,
   CreatePostRoute,
+  ForgotPasswordRoute,
   ListRoute,
   SettingsRoute,
   AuthSignInRoute,
@@ -193,6 +207,7 @@ export const routeTree = rootRoute.addChildren({
         "/agents",
         "/contact",
         "/create-post",
+        "/forgot-password",
         "/list",
         "/settings",
         "/_auth/sign-in",
@@ -215,6 +230,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/create-post": {
       "filePath": "create-post.tsx"
+    },
+    "/forgot-password": {
+      "filePath": "forgot-password.tsx"
     },
     "/list": {
       "filePath": "list.tsx"
