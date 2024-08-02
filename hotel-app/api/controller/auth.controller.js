@@ -59,7 +59,6 @@ export const loginController = async(req, res) => {
         const age=10000*60*60
         const token=jwt.sign({
             id:userAccount.id,
-            
         }, process.env.JWT_SECRET_KEY,{
             expiresIn:age
         })
